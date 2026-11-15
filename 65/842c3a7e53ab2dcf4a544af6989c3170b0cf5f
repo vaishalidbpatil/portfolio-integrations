@@ -1,0 +1,25 @@
+src/Portfolio.Mcp.Server/Tools/MetricsTools.cs
+  s_ef41988593a541::t_df54364fb10128 8
+src/Portfolio.Mcp.Server/Tools/OrderTools.cs
+  s_ef41988593a541::t_030d24bf0a1a68 8
+src/Portfolio.Mcp.Server/Portfolio.Mcp.Server.csproj
+  s_ef41988593a541::t_314e8c7c112610 10
+src/Portfolio.Mcp.Server/Tools/ReplayTools.cs
+  s_ef41988593a541::t_ceb39bbe8464ff 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "65842c3a7e53ab2dcf4a544af6989c3170b0cf5f",
+  "prompts": {},
+  "sessions": {
+    "s_ef41988593a541": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89f3d0c3-13aa-4bc6-a813-18398bba3153",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "vaishali.patil <vaishali.patil@coupa.com>"
+    }
+  }
+}
