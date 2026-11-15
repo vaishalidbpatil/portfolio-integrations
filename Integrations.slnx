@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Portfolio.Agent.Worker/Portfolio.Agent.Worker.csproj" />
     <Project Path="src/Portfolio.Mcp.Client/Portfolio.Mcp.Client.csproj" />
     <Project Path="src/Portfolio.Mcp.Server/Portfolio.Mcp.Server.csproj" />
   </Folder>

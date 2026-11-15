@@ -1,4 +1,22 @@
 services:
+  agent-worker:
+    build:
+      context: .
+      dockerfile: src/Portfolio.Agent.Worker/Dockerfile
+    image: portfolio-agent
+    container_name: portfolio-agent-worker
+    restart: unless-stopped
+    ports:
+      - "5003:5003"
+    environment:
+      ASPNETCORE_URLS: "http://+:5003"
+      Anthropic__ApiKey: ""
+      Orders__BaseUrl: "http://host.docker.internal:8080"
+      Orders__TokenUrl: "http://host.docker.internal:5001/connect/token"
+      Orders__ClientId: "mcp-server"
+      Orders__ClientSecret: "mcp-server-secret"
+      Orders__Scope: "orders.read"
+
   mcp-server:
     build:
       context: .
