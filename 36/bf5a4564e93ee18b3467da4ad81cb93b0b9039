@@ -1,0 +1,37 @@
+src/Portfolio.Mcp.Server/Program.cs
+  s_ef41988593a541::t_3589e148a5e8b6 1-4,8-13,17-19,21-22
+src/Portfolio.Mcp.Server/Tools/ReplayTool.cs
+  s_ef41988593a541::t_55cdebae17ec56 1-69
+src/Portfolio.Mcp.Server/Middleware/AuditMiddleware.cs
+  s_ef41988593a541::t_86d668ddffd155 1-25
+src/Portfolio.Mcp.Server/Tools/MetricsTool.cs
+  s_ef41988593a541::t_badc3729b8fdb8 1-23
+src/Portfolio.Mcp.Server/Tools/OrdersTool.cs
+  s_ef41988593a541::t_4fd6bed8fa80af 1-33
+src/Portfolio.Mcp.Server/Portfolio.Mcp.Server.csproj
+  s_ef41988593a541::t_59f3f45da5fac0 9-12
+src/Portfolio.Mcp.Server/appsettings.json
+  s_ef41988593a541::t_96cb8991eb8d6a 8-21
+docker-compose.yml
+  s_ef41988593a541::t_5f67d6ce367c4a 14-18
+src/Portfolio.Mcp.Server/Data/AuditRepository.cs
+  s_ef41988593a541::t_0b58b0379465ee 1-56
+src/Portfolio.Mcp.Server/Services/OrdersApiClient.cs
+  s_ef41988593a541::t_fd68a233b0941c 1-88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "36bf5a4564e93ee18b3467da4ad81cb93b0b9039",
+  "prompts": {},
+  "sessions": {
+    "s_ef41988593a541": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89f3d0c3-13aa-4bc6-a813-18398bba3153",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "vaishali.patil <vaishali.patil@coupa.com>"
+    }
+  }
+}
