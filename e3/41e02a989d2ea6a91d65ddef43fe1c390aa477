@@ -1,0 +1,29 @@
+src/Portfolio.Agent.Worker/Program.cs
+  s_ef41988593a541::t_b11a00406dd389 1-2,4,9-21
+src/Portfolio.Agent.Worker/appsettings.json
+  s_ef41988593a541::t_00efdf1d400562 9
+docker-compose.yml
+  s_ef41988593a541::t_f9207b3c1a98c9 13
+src/Portfolio.Agent.Worker/Portfolio.Agent.Worker.csproj
+  s_ef41988593a541::t_56fb99699aacf2 12,14
+src/Portfolio.Agent.Worker/Services/OrdersApiClient.cs
+  s_ef41988593a541::t_0fdf289b601630 62-64
+src/Portfolio.Agent.Worker/Services/PortfolioAgent.cs
+  s_ef41988593a541::t_7d6cd2332a8b12 1,5,7,13,21,23,25-32,35,37-38,41,43-47,49,51-52,56-59,66-69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e341e02a989d2ea6a91d65ddef43fe1c390aa477",
+  "prompts": {},
+  "sessions": {
+    "s_ef41988593a541": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89f3d0c3-13aa-4bc6-a813-18398bba3153",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "vaishali.patil <vaishali.patil@coupa.com>"
+    }
+  }
+}
