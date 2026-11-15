@@ -11,3 +11,8 @@ services:
       ASPNETCORE_URLS: "http://+:5002"
       Orders__BaseUrl: "http://host.docker.internal:8080"
       Orders__TokenUrl: "http://host.docker.internal:5001/connect/token"
+      Orders__ClientId: "mcp-server"
+      Orders__ClientSecret: "mcp-server-secret"
+      Orders__Scope: "orders.read"
+      Database__ConnectionString: "Host=host.docker.internal;Port=5432;Database=tradeorders;Username=admin;Password=admin123"
+      McpServer__EnableWriteTools: "false"
