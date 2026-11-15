@@ -1,0 +1,35 @@
+.gitignore
+  s_f6ca9e209b566f::t_37ce29458ad9de 1-482
+Integrations.slnx
+  s_f6ca9e209b566f::t_769beb62826ff6 1-6
+src/Portfolio.Mcp.Client/Class1.cs
+  s_f6ca9e209b566f::t_80e8cf55d2ec31 1-6
+src/Portfolio.Mcp.Server/Portfolio.Mcp.Server.csproj
+  s_f6ca9e209b566f::t_8cdba7578787f9 1-9
+src/Portfolio.Mcp.Server/Program.cs
+  s_f6ca9e209b566f::t_35c2011d8ac8a9 1-13
+src/Portfolio.Mcp.Server/Properties/launchSettings.json
+  s_f6ca9e209b566f::t_ede55831779e4a 1-23
+src/Portfolio.Mcp.Server/Tools/WeatherTool.cs
+  s_f6ca9e209b566f::t_c10d6c5be3b911 1-34
+src/Portfolio.Mcp.Server/appsettings.Development.json
+  s_f6ca9e209b566f::t_92d979629a7d3d 1-8
+src/Portfolio.Mcp.Server/appsettings.json
+  s_f6ca9e209b566f::t_78e62a5fcef88c 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d520c344468914db03a6a583ad50a1d3cb7ea6b6",
+  "prompts": {},
+  "sessions": {
+    "s_f6ca9e209b566f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b8474267-82d1-431c-a7de-8b207ebf9fbe",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "vaishali.patil <vaishali.patil@coupa.com>"
+    }
+  }
+}
