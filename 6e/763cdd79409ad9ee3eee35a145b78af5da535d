@@ -1,0 +1,27 @@
+docker-compose.yml
+  s_ef41988593a541::t_fa5c3502d6bcc4 1-13
+src/Portfolio.Mcp.Server/Dockerfile
+  s_ef41988593a541::t_78b831f4ffffa9 1-19
+setup.ps1
+  s_ef41988593a541::t_0cafffaa20186b 1-57
+.github/workflows/ci.yml
+  s_ef41988593a541::t_f487c842d6d712 1-24
+README.md
+  s_ef41988593a541::t_2e4afbb6534bc6 1-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6e763cdd79409ad9ee3eee35a145b78af5da535d",
+  "prompts": {},
+  "sessions": {
+    "s_ef41988593a541": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89f3d0c3-13aa-4bc6-a813-18398bba3153",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "vaishali.patil <vaishali.patil@coupa.com>"
+    }
+  }
+}
