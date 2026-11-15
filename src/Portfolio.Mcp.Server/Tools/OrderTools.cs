@@ -5,7 +5,7 @@ using Portfolio.Mcp.Server.Services;
 namespace Portfolio.Mcp.Server.Tools;
 
 [McpServerToolType]
-public class OrderTools
+public static class OrderTools
 {
     [McpServerTool, Description("Get the current status and details of a single trade order by its ID.")]
     public static async Task<string> GetOrderStatus(

@@ -5,7 +5,7 @@ using Portfolio.Mcp.Server.Services;
 namespace Portfolio.Mcp.Server.Tools;
 
 [McpServerToolType]
-public class MetricsTools
+public static class MetricsTools
 {
     [McpServerTool, Description(
         "Get a data quality report: order volumes, status breakdown, outbox queue depth, and error counts. " +

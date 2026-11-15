@@ -6,7 +6,7 @@ using Portfolio.Mcp.Server.Services;
 namespace Portfolio.Mcp.Server.Tools;
 
 [McpServerToolType]
-public class ReplayTools
+public static class ReplayTools
 {
     private static readonly ConcurrentDictionary<string, (string MessageId, DateTime ExpiresAt)> _pending = new();
 
