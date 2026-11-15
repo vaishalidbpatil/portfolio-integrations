@@ -1,40 +1,16 @@
-using Anthropic.SDK;
-using Anthropic.SDK.Constants;
-using Anthropic.SDK.Messaging;
-using Portfolio.Agent.Worker.Tools;
-using AnthropicTool = Anthropic.SDK.Common.Tool;
+using Microsoft.Extensions.AI;
 
 namespace Portfolio.Agent.Worker.Services;
 
-public class PortfolioAgent
+public class PortfolioAgent(IChatClient chatClient, OrdersApiClient ordersApi, ILogger<PortfolioAgent> logger)
 {
-    private readonly AnthropicClient _claude;
-    private readonly List<AnthropicTool> _tools;
-    private readonly ILogger<PortfolioAgent> _logger;
+    private const string ModelId = "gemini-1.5-flash";
 
     private const string SystemPrompt =
         "You are a portfolio health analyst for a trade order processing system. " +
         "When asked to assess the system, always call get_metrics first, then list_orders to sample recent activity. " +
         "Flag anomalies: rejection rate >10%, any DEAD_LETTERED orders, outbox backlog >50. " +
-        "Be concise, specific, and always include concrete numbers from the data you retrieve.";
-
-    public PortfolioAgent(OrdersApiClient ordersApi, IConfiguration config, ILogger<PortfolioAgent> logger)
-    {
-        _logger = logger;
-        var apiKey = config["Anthropic:ApiKey"]
-            ?? throw new InvalidOperationException("Anthropic:ApiKey configuration is missing.");
-
-        _claude = new AnthropicClient(apiKey);
-
-        var defs = new PortfolioToolDefinitions(ordersApi);
-        _tools =
-        [
-            AnthropicTool.GetOrCreateTool(defs, nameof(PortfolioToolDefinitions.GetMetrics),
-                "Retrieve current trade order metrics: total counts, status breakdown (PENDING/FILLED/REJECTED/DEAD_LETTERED), hourly volume, and outbox health."),
-            AnthropicTool.GetOrCreateTool(defs, nameof(PortfolioToolDefinitions.ListOrders),
-                "List recent trade orders, optionally filtered by status."),
-        ];
-    }
+        "Be concise, specific, and always cite concrete numbers from the data you retrieve.";
 
     public async Task<AgentResponse> RunAsync(string? prompt, CancellationToken ct = default)
     {
@@ -42,71 +18,53 @@ public class PortfolioAgent
             ? "Provide a comprehensive health assessment of the trade order system. Check metrics, review recent orders, and flag any anomalies."
             : prompt;
 
-        _logger.LogInformation("Agent run started. Prompt: {Prompt}", userPrompt);
+        logger.LogInformation("Agent run started. Prompt: {Prompt}", userPrompt);
 
-        var messages = new List<Message>
+        var tools = new AITool[]
         {
-            new(RoleType.User, userPrompt)
+            AIFunctionFactory.Create(
+                new Func<Task<string>>(ordersApi.GetMetricsJsonAsync),
+                "get_metrics",
+                "Retrieve current trade order metrics: total counts, breakdown by status (PENDING/FILLED/REJECTED/DEAD_LETTERED), orders in the last hour, and outbox health."),
+            AIFunctionFactory.Create(
+                new Func<string?, int, Task<string>>(ordersApi.ListOrdersJsonAsync),
+                "list_orders",
+                "List recent trade orders with optional filters.")
         };
 
-        var parameters = new MessageParameters
+        var messages = new List<ChatMessage>
         {
-            Model   = AnthropicModels.Claude46Sonnet,
-            MaxTokens = 4096,
-            System  = [new SystemMessage(SystemPrompt)],
-            Messages = messages,
-            Tools   = _tools
+            new(ChatRole.System, SystemPrompt),
+            new(ChatRole.User, userPrompt)
         };
 
-        int toolCallsExecuted = 0;
-
-        for (int iteration = 0; iteration < 10; iteration++)
+        var options = new ChatOptions
         {
-            var response = await _claude.Messages.GetClaudeMessageAsync(parameters, ct);
-            messages.Add(response.Message);
+            ModelId      = ModelId,
+            MaxOutputTokens = 4096,
+            Tools        = [.. tools],
+            ToolMode     = ChatToolMode.Auto
+        };
 
-            var toolCalls = response.ToolCalls?.ToList() ?? [];
-            if (toolCalls.Count == 0)
-            {
-                var result = response.Message.ToString();
-                _logger.LogInformation("Agent run completed. Tool calls: {Count}. Tokens used: {Tokens}",
-                    toolCallsExecuted, response.Usage?.OutputTokens);
+        var response = await chatClient.GetResponseAsync(messages, options, ct);
 
-                return new AgentResponse
-                {
-                    Result           = result,
-                    ToolCallsExecuted = toolCallsExecuted,
-                    Model            = parameters.Model,
-                    InputTokens      = response.Usage?.InputTokens ?? 0,
-                    OutputTokens     = response.Usage?.OutputTokens ?? 0
-                };
-            }
-
-            toolCallsExecuted += toolCalls.Count;
-            _logger.LogDebug("Executing {Count} tool call(s) in iteration {Iteration}",
-                toolCalls.Count, iteration + 1);
-
-            foreach (var toolCall in toolCalls)
-            {
-                var toolResult = await toolCall.InvokeAsync<string>();
-                messages.Add(new Message(toolCall, toolResult));
-            }
-        }
+        logger.LogInformation("Agent run completed. Input tokens: {In}, Output tokens: {Out}",
+            response.Usage?.InputTokenCount, response.Usage?.OutputTokenCount);
 
         return new AgentResponse
         {
-            Result            = "Agent reached maximum iterations without a final answer.",
-            ToolCallsExecuted = toolCallsExecuted,
-            Model             = parameters.Model
+            Result       = response.Text ?? string.Empty,
+            Model        = ModelId,
+            InputTokens  = (int)(response.Usage?.InputTokenCount ?? 0),
+            OutputTokens = (int)(response.Usage?.OutputTokenCount ?? 0)
         };
     }
 }
 
 public record AgentResponse
 {
-    public string Result            { get; init; } = string.Empty;
-    public int    ToolCallsExecuted { get; init; }
-    public string Model             { get; init; } = string.Empty;
-    public int    InputTokens       { get; init; }
-    public int    OutputTokens      { get; init; }
+    public string Result       { get; init; } = string.Empty;
+    public string Model        { get; init; } = string.Empty;
+    public int    InputTokens  { get; init; }
+    public int    OutputTokens { get; init; }
 }

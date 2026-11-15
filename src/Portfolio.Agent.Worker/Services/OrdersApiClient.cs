@@ -59,7 +59,9 @@ public class OrdersApiClient
         return await resp.Content.ReadAsStringAsync();
     }
 
-    public async Task<string> ListOrdersJsonAsync(string? status, int pageSize)
+    public async Task<string> ListOrdersJsonAsync(
+        [System.ComponentModel.Description("Status filter: PENDING, FILLED, REJECTED, or DEAD_LETTERED. Omit for all statuses.")] string? status,
+        [System.ComponentModel.Description("Maximum orders to return (1-50).")] int pageSize)
     {
         var qs = $"?pageSize={Math.Clamp(pageSize, 1, 50)}";
         if (!string.IsNullOrEmpty(status))
