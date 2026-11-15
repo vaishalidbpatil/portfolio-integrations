@@ -4,7 +4,6 @@ using Portfolio.Mcp.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<OrdersApiClient>(sp =>
     new OrdersApiClient(
@@ -12,14 +11,20 @@ builder.Services.AddSingleton<OrdersApiClient>(sp =>
         sp.GetRequiredService<IConfiguration>()));
 builder.Services.AddScoped<AuditRepository>();
 
+builder.Services
+    .AddMcpServer()
+    .WithHttpTransport()
+    .WithTools<Portfolio.Mcp.Server.Tools.OrderTools>()
+    .WithTools<Portfolio.Mcp.Server.Tools.MetricsTools>()
+    .WithTools<Portfolio.Mcp.Server.Tools.ReplayTools>();
+
 var app = builder.Build();
 
-// Ensure audit log table exists (non-fatal if DB not configured)
 using (var scope = app.Services.CreateScope())
     await scope.ServiceProvider.GetRequiredService<AuditRepository>().EnsureTableAsync();
 
 app.UseMiddleware<AuditMiddleware>();
-app.MapControllers();
+app.MapMcp();
 app.MapGet("/health/live", () => Results.Ok(new { status = "alive" }));
 
 app.Run();
