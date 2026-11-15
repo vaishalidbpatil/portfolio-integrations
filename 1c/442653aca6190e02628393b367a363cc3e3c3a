@@ -1,0 +1,45 @@
+src/Portfolio.Agent.Worker/Dockerfile
+  s_ef41988593a541::t_fecca72c778583 1-19
+src/Portfolio.Agent.Worker/Services/OrdersApiClient.cs
+  s_ef41988593a541::t_b49f62d7575bc5 1-77
+docker-compose.yml
+  s_ef41988593a541::t_af8b7bc024fe1f 2-19
+src/Portfolio.Agent.Worker/Portfolio.Agent.Worker.csproj
+  s_ef41988593a541::t_826440fbf1d6ff 1
+  s_ef41988593a541::t_f38684f596abb6 12
+  s_ef41988593a541::t_c5b5d2303742cd 2-10,14-15
+  s_ef41988593a541::t_15b5400b29b1f9 11
+  s_ef41988593a541::t_5f4f5096120d1a 13
+src/Portfolio.Agent.Worker/Program.cs
+  s_ef41988593a541::t_0501ceaca299dc 1-20
+src/Portfolio.Agent.Worker/Properties/launchSettings.json
+  s_ef41988593a541::t_c5b5d2303742cd 1-12
+src/Portfolio.Agent.Worker/Tools/PortfolioToolDefinitions.cs
+  s_ef41988593a541::t_12130d744ba85d 1-17
+src/Portfolio.Agent.Worker/Services/PortfolioAgent.cs
+  s_ef41988593a541::t_f4580aedda4f5d 32
+  s_ef41988593a541::t_e5843bbfc3c2c1 5
+  s_ef41988593a541::t_f4f9c4cd067441 34
+  s_ef41988593a541::t_da1c23727c5e05 12
+  s_ef41988593a541::t_08b1bf8b244191 1-4,6-11,13-31,33,35-112
+Integrations.slnx
+  s_ef41988593a541::t_24d829b9d32657 3
+src/Portfolio.Agent.Worker/appsettings.json
+  s_ef41988593a541::t_28174620b521b9 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1c442653aca6190e02628393b367a363cc3e3c3a",
+  "prompts": {},
+  "sessions": {
+    "s_ef41988593a541": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "89f3d0c3-13aa-4bc6-a813-18398bba3153",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "vaishali.patil <vaishali.patil@coupa.com>"
+    }
+  }
+}
